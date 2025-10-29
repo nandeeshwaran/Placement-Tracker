@@ -19,7 +19,7 @@ function Badge({ status }) {
 }
 
 export default function StudentManagement() {
-  const [companies, setCompanies] = useState([]);
+  const [, setCompanies] = useState([]);
   const [students, setStudents] = useState([]);
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
