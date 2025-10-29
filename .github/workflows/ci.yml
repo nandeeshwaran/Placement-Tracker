@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build Backend
         run: |
-          cd backend
+          cd backend\backend
           npm install
           npm run build || echo "No build script"
 
