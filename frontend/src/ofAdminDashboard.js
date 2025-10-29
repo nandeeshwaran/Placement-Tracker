@@ -15,11 +15,9 @@ const OfAdminDashboard = () => {
     const [selectedCompany, setSelectedCompany] = useState("");
     const [notification, setNotification] = useState({ message: "", visible: false });
     const [showDetailsPopup, setShowDetailsPopup] = useState({ visible: false, company: null });
-    const [filterRounds, setFilterRounds] = useState("All");
-    const [selectedBranch, setSelectedBranch] = useState("");
+    const [filterRounds] = useState("All");
 
     const [ofcompanies, setCompanies] = useState([]);
-    const [branchCount, setBranchCount] = useState(null);
 
     console.log(ofcompanies);
 

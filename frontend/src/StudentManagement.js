@@ -32,12 +32,12 @@ export default function StudentManagement() {
       try {
         setLoading(true);
         const cRes = await fetch(`${process.env.REACT_APP_API_URL || ""}/api/companies`);
-        const companies = await cRes.json();
+        const companiesData = await cRes.json();
         if (!mounted) return;
-        setCompanies(companies || []);
+        setCompanies(companiesData || []);
 
         // For each company, fetch passed students (those who cleared all rounds)
-        const promises = (companies || []).map((c) =>
+        const promises = (companiesData || []).map((c) =>
           fetch(`${process.env.REACT_APP_API_URL || ""}/api/passedStudents/${encodeURIComponent(c.cname)}`)
             .then((r) => (r.ok ? r.json() : []))
             .then((data) => ({ company: c.cname, data }))
