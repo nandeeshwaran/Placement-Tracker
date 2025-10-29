@@ -1,4 +1,4 @@
-name: V-Meet CI
+name: PlacementTracker CI
 
 on:
   push:
@@ -8,27 +8,54 @@ on:
 
 jobs:
   build_backend:
+    name: Build Backend
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Build Backend
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install backend dependencies
         run: |
-          cd backend\backend
+          cd backend/backend
           npm install
-          npm run build || echo "No build script"
+
+      - name: Run backend build (if applicable)
+        run: |
+          cd backend/backend
+          npm run build || echo "No backend build script found"
 
   build_frontend:
+    name: Build Frontend
     runs-on: ubuntu-latest
     needs: build_backend
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Build Frontend
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install frontend dependencies
         run: |
           cd frontend
           npm install
+
+      - name: Build frontend
+        run: |
+          cd frontend
           npm run build
-      - name: Upload Frontend Build Artifact
+
+      - name: Upload frontend build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: frontend_dist
-          path: frontend/cloud-front/dist
+          name: frontend_build
+          path: frontend/build
