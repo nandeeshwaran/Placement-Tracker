@@ -48,7 +48,7 @@ jobs:
           cd frontend
           npm install
 
-      - name: Optional: Build frontend for analysis
+      - name: Optional Build frontend for analysis
         run: |
           cd frontend
           npm run build --if-present
