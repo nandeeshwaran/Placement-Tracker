@@ -1,0 +1,25 @@
+.viz-root{
+  margin-bottom:18px;
+}
+.viz-title{
+  margin:0 0 12px 0;
+  font-size:18px;
+  color:var(--color-text);
+}
+.viz-grid{
+  display:grid;
+  grid-template-columns: 1fr 340px;
+  gap:16px;
+  align-items:start;
+}
+.viz-chart{background:transparent}
+.viz-chart.small{min-width:200px}
+.viz-note{
+  margin-top:10px;
+  color:var(--color-muted);
+  font-size:13px;
+}
+
+@media(max-width:900px){
+  .viz-grid{grid-template-columns:1fr}
+}

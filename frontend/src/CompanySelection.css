@@ -1,0 +1,134 @@
+body {
+    font-family: Arial, sans-serif;
+  background-color: var(--color-bg);
+    margin: 0;
+    padding: 0;
+  }
+  
+  .header {
+  background-color: var(--color-blue-700);
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .header h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .header p {
+    margin-top: 5px;
+  }
+
+  .container {
+    padding: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+.table-wrapper{overflow-x:auto}
+
+.btn-primary{background-color:var(--color-primary);color:white;border:none;padding:8px 12px;border-radius:6px;cursor:pointer}
+.btn-primary:hover{opacity:0.95}
+  
+  th, td {
+  border: 1px solid rgba(30,64,175,0.06);
+    padding: 12px;
+    text-align: center;
+  }
+  
+  th {
+  background-color: var(--color-blue-600);
+    color: white;
+  }
+  
+  button {
+  background-color: var(--color-blue-600);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+  background-color: var(--color-blue-800);
+  }
+  
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+  background-color: var(--color-blue-100);
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  color: var(--color-blue-700);
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 10px;
+    text-align: left;
+  }
+  
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input, select, textarea {
+    width: 100%;
+    padding: 8px;
+  border: 1px solid rgba(30,64,175,0.06);
+    border-radius: 5px;
+  }
+  
+  textarea {
+    resize: none;
+  }
+  
+  .form-actions {
+    text-align: center;
+  }
+  
+  .form-actions button {
+    width: 100%;
+  }
+  

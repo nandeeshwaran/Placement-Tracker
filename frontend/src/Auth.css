@@ -1,0 +1,11 @@
+/* Authentication / login styles to centralize visual theme */
+.auth-page { display:flex; flex-direction:column; min-height:100vh }
+.auth-header{ background:var(--color-primary); color:white; text-align:center; padding:48px 16px }
+.auth-container{ display:flex; justify-content:center; padding:24px }
+.auth-login-grid{ display:flex; gap:20px; flex-wrap:wrap; justify-content:center }
+.auth-box{ background:var(--color-surface); border-radius:10px; box-shadow:0 8px 24px rgba(16,24,40,0.06); padding:20px; width:320px }
+.auth-box h2{ margin-top:0 }
+.auth-input{ width:100%; padding:10px; margin:8px 0; border:1px solid #e5e7eb; border-radius:6px }
+.auth-button{ width:100%; padding:10px; background:var(--color-primary); color:white; border:none; border-radius:6px; cursor:pointer; font-weight:600 }
+.auth-footer{ text-align:center; padding:12px; color:var(--color-muted) }
+.auth-error{ color:var(--color-blue-800); font-size:13px }

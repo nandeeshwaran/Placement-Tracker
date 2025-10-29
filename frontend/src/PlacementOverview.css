@@ -1,0 +1,5 @@
+/* Minimal styles for the student Placement Overview page */
+.placement-overview { padding: 18px; }
+.placement-overview h2 { margin-top: 0; }
+.overview-cards { display:flex; gap:12px; margin-top:16px; flex-wrap:wrap; }
+.overview-cards .card { display:inline-flex; align-items:center; justify-content:center; min-width:160px; padding:14px; border-radius:12px; background:var(--color-surface); color:var(--color-text); box-shadow:var(--shadow-soft); text-decoration:none; }
