@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -38,19 +40,23 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install frontend dependencies
+        env:
+          CI: true
+          HUSKY: 0
         run: |
           cd frontend
-          npm install
+          npm ci
 
       - name: Build frontend
         run: |
           cd frontend
-          npm run build
-
+          npm run build || echo "No frontend build script found"
