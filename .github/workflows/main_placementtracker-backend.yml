@@ -1,9 +1,8 @@
-name: Deploy Backend to Azure
+name: CI/CD for Placement Tracker Backend
 
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -12,29 +11,29 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          submodules: false  # 🔥 Fix submodule error
 
-      - name: Setup Node 20
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '20'
 
       - name: Install Dependencies
-        working-directory: ./backend/backend
+        working-directory: backend/backend
         run: npm install
 
       - name: Build (if needed)
-        working-directory: ./backend/backend
-        run: npm run build --if-present
+        working-directory: backend/backend
+        run: echo "No build step needed"
 
-      - name: Zip artifact
-        run: |
-          cd backend/backend
-          zip -r ../../deploy.zip .
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}   # 🔥 MUST exist
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: placementtracker-backend
-          slot-name: production
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
-          package: deploy.zip
+          app-name: placementtracker-backend        # your app name
+          package: backend/backend                  # folder to deploy
