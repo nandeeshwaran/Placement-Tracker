@@ -36,7 +36,7 @@
 .sm-badge.not-placed { background: rgba(30,64,175,0.08); color: var(--color-blue-800); }
 
 .sm-modal { position:fixed; inset:0; background: rgba(2,6,23,0.6); display:flex; align-items:center; justify-content:center; z-index:1200; }
-.sm-modal-content { background:#fff; border-radius:10px; width:720px; max-width:94%; padding:20px; position:relative; }
+.sm-modal-content { background:#fff; border-radius:10px; width:720px; max-width:94%; padding:20px; position:relative; max-height:80vh; overflow:auto; }
 .sm-modal-close { position:absolute; right:10px; top:10px; border:none; background:transparent; font-size:20px; cursor:pointer; }
 .sm-modal-body { display:flex; gap:20px; align-items:center; }
 .sm-modal-left { flex:0 0 80px; display:flex; align-items:center; justify-content:center; }

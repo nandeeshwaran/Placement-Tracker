@@ -81,6 +81,12 @@ export default function Layout({ children }) {
                 <Icon>🚀</Icon>
                 {!collapsed && <span className="nav-text">Off Campus</span>}
               </NavLink>
+
+              {/* Student-only: My Resume Summary */}
+              <NavLink to="/my-resume" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'} title="My Resume">
+                <Icon>📄</Icon>
+                {!collapsed && <span className="nav-text">My Resume</span>}
+              </NavLink>
             </>
           )}
 

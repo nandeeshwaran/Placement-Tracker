@@ -24,6 +24,9 @@ export default function StudentManagement() {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
+  const [resumeSummary, setResumeSummary] = useState(null);
+  const [resumeLoading, setResumeLoading] = useState(false);
+  const [resumeError, setResumeError] = useState('');
 
   useEffect(() => {
     let mounted = true;
@@ -86,6 +89,41 @@ export default function StudentManagement() {
       [s.name, s.reg, s.branch, s.company].some((v) => (v || "").toString().toLowerCase().includes(q))
     );
   }, [students, query]);
+
+  // fetch resume summary when selected changes
+  useEffect(() => {
+    let mounted = true;
+    async function fetchResume() {
+      if (!selected || !selected.reg) {
+        setResumeSummary(null);
+        setResumeError('');
+        setResumeLoading(false);
+        return;
+      }
+      setResumeLoading(true);
+      setResumeError('');
+      try {
+        const res = await fetch(`${process.env.REACT_APP_API_URL || ''}/api/resume/${encodeURIComponent(selected.reg)}`);
+        if (!mounted) return;
+        if (res.ok) {
+          const data = await res.json();
+          setResumeSummary(data.summary || null);
+        } else if (res.status === 404) {
+          setResumeSummary(null);
+        } else {
+          const d = await res.json().catch(() => ({}));
+          setResumeError(d.message || 'Failed to fetch summary');
+        }
+      } catch (err) {
+        if (!mounted) return;
+        setResumeError('Network error while fetching summary');
+      } finally {
+        if (mounted) setResumeLoading(false);
+      }
+    }
+    fetchResume();
+    return () => { mounted = false; };
+  }, [selected]);
 
   return (
     <div className="sm-page">
@@ -152,6 +190,19 @@ export default function StudentManagement() {
                 <p><strong>Branch:</strong> {selected.branch || "—"}</p>
                 <p><strong>Company:</strong> {selected.company || "—"}</p>
                 <p><strong>Status:</strong> <Badge status={selected.status} /></p>
+
+                <section className="sm-resume-summary">
+                  <h4>Resume Summary</h4>
+                  {resumeLoading ? (
+                    <p>Loading summary…</p>
+                  ) : resumeError ? (
+                    <p className="sm-error">{resumeError}</p>
+                  ) : resumeSummary ? (
+                    <p className="sm-summary-text">{resumeSummary}</p>
+                  ) : (
+                    <p className="sm-muted">No summary available for this student.</p>
+                  )}
+                </section>
                 <div className="sm-modal-actions">
                   {/* Allow client-side toggle for Interviewing/Not Placed for convenience */}
                   <button className="sm-btn" onClick={() => setStudents((prev) => prev.map((p) => p.reg === selected.reg ? { ...p, status: 'Interviewing' } : p))}>Mark Interviewing</button>
@@ -165,3 +216,5 @@ export default function StudentManagement() {
     </div>
   );
 }
+
+

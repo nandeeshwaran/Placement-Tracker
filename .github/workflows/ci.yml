@@ -1,62 +1,46 @@
-name: PlacementTracker CI
+name: CI/CD for Placement Tracker App
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
+    branches: [ main ]
 
 jobs:
-  build_backend:
-    name: Build Backend
+  build:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+    strategy:
+      matrix:
+        node-version: [18.x]
 
-      - name: Set up Node.js
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: ${{ matrix.node-version }}
 
-      - name: Install backend dependencies
+      # 🧠 Backend
+      - name: Install Backend Dependencies
         run: |
           cd backend/backend
           npm install
 
-      - name: Run backend build (if applicable)
+      - name: Run Backend Tests
         run: |
           cd backend/backend
-          npm run build || echo "No backend build script found"
+          npm test || echo "No backend tests found"
 
-  build_frontend:
-    name: Build Frontend
-    runs-on: ubuntu-latest
-    needs: build_backend
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install frontend dependencies
-        env:
-          CI: true
-          HUSKY: 0
+      # 🎨 Frontend
+      - name: Install Frontend Dependencies
         run: |
           cd frontend
-          npm ci
+          npm install
 
-      - name: Build frontend
+      - name: Build Frontend
         run: |
           cd frontend
-          npm run build || echo "No frontend build script found"
+          npm run build

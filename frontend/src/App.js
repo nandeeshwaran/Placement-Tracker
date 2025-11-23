@@ -6,6 +6,7 @@ import CompanySelection from "./CompanySelection";
 import CampusSelection from "./CampusSelection";
 import OfCompanySelection from "./ofCompanySelection";
 import StudentManagement from "./StudentManagement";
+import SummaryDashboard from "./SummaryDashboard";
 import Layout from "./components/Layout";
 import PageTransition from "./components/PageTransition";
 import { AuthProvider } from './auth/AuthContext';
@@ -59,6 +60,12 @@ function App() {
         <Route path="/students" element={
           <RequireAuth allowedRoles={[ 'student', 'admin' ]}>
             <Layout><PageTransition><StudentManagement /></PageTransition></Layout>
+          </RequireAuth>
+        } />
+        
+        <Route path="/my-resume" element={
+          <RequireAuth allowedRoles={[ 'student' ]}>
+            <Layout><PageTransition><SummaryDashboard /></PageTransition></Layout>
           </RequireAuth>
         } />
       </Routes>
