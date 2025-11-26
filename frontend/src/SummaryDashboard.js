@@ -22,7 +22,7 @@ export default function SummaryDashboard() {
     async function fetchSummary() {
       try {
         setLoading(true);
-        const res = await fetch(`${process.env.REACT_APP_API_URL || ''}/api/resume/${encodeURIComponent(srno)}`);
+        const res = await fetch(`https://placement-tracker-backend.azurewebsites.net/api/resume/${encodeURIComponent(srno)}`);
         if (!mounted) return;
         if (res.ok) {
           const data = await res.json();
@@ -60,7 +60,7 @@ export default function SummaryDashboard() {
     try {
       const fd = new FormData();
       fd.append('resume', file);
-      const url = `${process.env.REACT_APP_API_URL || ''}/api/resume/${useReupload ? 'reupload' : 'upload'}/${encodeURIComponent(srno)}`;
+      const url = `${`https://placement-tracker-backend.azurewebsites.net` || ''}/api/resume/${useReupload ? 'reupload' : 'upload'}/${encodeURIComponent(srno)}`;
       const method = useReupload ? 'PUT' : 'POST';
       const res = await fetch(url, { method, body: fd });
       const data = await res.json();

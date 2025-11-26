@@ -37,7 +37,7 @@ const OfCompanySelection = () => {
   // }, []);
 
   const fetchOfCampusCompanies = () => {
-    axios.get(`${process.env.REACT_APP_API_URL}/api/ofcompanies`)
+    axios.get(`${`https://placement-tracker-backend.azurewebsites.net`}/api/ofcompanies`)
       .then((response) => {
         setCompanies(response.data);
         setShowCompanies(true);
@@ -61,7 +61,7 @@ const OfCompanySelection = () => {
   const fetchBlog = (companyName) => {
     console.log(`Fetching blog for: ${companyName}`);
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/ofblogs/${companyName}`)
+      .get(`${`https://placement-tracker-backend.azurewebsites.net`}/api/ofblogs/${companyName}`)
       .then((response) => {
         console.log("Blog Data:", response.data);
         Swal.fire({
@@ -97,7 +97,7 @@ const OfCompanySelection = () => {
 
     setErrors({});
     setSubmitting(true);
-    axios.post(`${process.env.REACT_APP_API_URL}/saveOffStudentProgress`, formData)
+    axios.post(`${`https://placement-tracker-backend.azurewebsites.net`}/saveOffStudentProgress`, formData)
       .then(() => {
         toast.success('Saved');
         closeModal();

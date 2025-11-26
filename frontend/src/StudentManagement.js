@@ -34,14 +34,14 @@ export default function StudentManagement() {
     async function load() {
       try {
         setLoading(true);
-        const cRes = await fetch(`${process.env.REACT_APP_API_URL || ""}/api/companies`);
+        const cRes = await fetch(`${`https://placement-tracker-backend.azurewebsites.net` || ""}/api/companies`);
         const companiesData = await cRes.json();
         if (!mounted) return;
         setCompanies(companiesData || []);
 
         // For each company, fetch passed students (those who cleared all rounds)
         const promises = (companiesData || []).map((c) =>
-          fetch(`${process.env.REACT_APP_API_URL || ""}/api/passedStudents/${encodeURIComponent(c.cname)}`)
+          fetch(`${`https://placement-tracker-backend.azurewebsites.net` || ""}/api/passedStudents/${encodeURIComponent(c.cname)}`)
             .then((r) => (r.ok ? r.json() : []))
             .then((data) => ({ company: c.cname, data }))
             .catch(() => ({ company: c.cname, data: [] }))
@@ -103,7 +103,7 @@ export default function StudentManagement() {
       setResumeLoading(true);
       setResumeError('');
       try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL || ''}/api/resume/${encodeURIComponent(selected.reg)}`);
+        const res = await fetch(`${`https://placement-tracker-backend.azurewebsites.net` || ''}/api/resume/${encodeURIComponent(selected.reg)}`);
         if (!mounted) return;
         if (res.ok) {
           const data = await res.json();

@@ -26,7 +26,7 @@ const CompanySelection = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/companies`)
+      .get(`${`https://placement-tracker-backend.azurewebsites.net`}/api/companies`)
       .then((response) => {
         setCompanies(response.data);
       })
@@ -37,7 +37,7 @@ const CompanySelection = () => {
 
   const fetchOnCampusCompanies = () => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/companies`)
+      .get(`${`https://placement-tracker-backend.azurewebsites.net`}/api/companies`)
       .then((response) => {
         setOnCampusCompanies(response.data);
       })
@@ -49,7 +49,7 @@ const CompanySelection = () => {
   const fetchBlog = (companyName) => {
     console.log(`Fetching blog for: ${companyName}`);
     axios
-  .get(`${process.env.REACT_APP_API_URL}/api/blogs/${companyName}`) // Ensure this matches backend route
+  .get(`${`https://placement-tracker-backend.azurewebsites.net`}/api/blogs/${companyName}`) // Ensure this matches backend route
   .then((response) => {
     console.log("Blog Data:", response.data);
     Swal.fire({
@@ -97,7 +97,7 @@ const CompanySelection = () => {
     setErrors({});
     setSubmitting(true);
     axios
-      .post(`${process.env.REACT_APP_API_URL}/saveStudentProgress`, formData)
+      .post(`${`https://placement-tracker-backend.azurewebsites.net`}/saveStudentProgress`, formData)
       .then(() => {
         toast.success('Saved');
         closeModal();

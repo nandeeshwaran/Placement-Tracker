@@ -16,7 +16,7 @@ import { useToast } from './components/Toast';
 const AdminDashboard = () => {
   useEffect(() => {
     setLoading(true);
-    fetch(`${process.env.REACT_APP_API_URL}/api/companies`)
+    fetch(`${`https://placement-tracker-backend.azurewebsites.net`}/api/companies`)
       .then(res => res.json())
       .then(data => setCompanies(data))
       .catch(err => console.error("Error fetching companies", err))
@@ -49,7 +49,7 @@ console.log(companies);
   const handleAddCompany = () => {
   if (newCompany.name && newCompany.rounds) {
     // API call to backend
-    fetch(`${process.env.REACT_APP_API_URL}/api/addCompany`, {
+    fetch(`${'https://placement-tracker-backend.azurewebsites.net'}/api/addCompany`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -63,7 +63,7 @@ console.log(companies);
       .then(data => {
         if (data.success) {
           // Refresh company list from DB
-          fetch(`${process.env.REACT_APP_API_URL}/api/companies`)
+          fetch(`${`https://placement-tracker-backend.azurewebsites.net`}/api/companies`)
             .then(res => res.json())
             .then(data => setCompanies(data));
 
@@ -82,14 +82,14 @@ console.log(companies);
   const handleRemoveCompany = () => {
   if (!selectedCompany || selectedCompany === "Select Company") return;
 
-  fetch(`${process.env.REACT_APP_API_URL}/api/deleteCompany/${selectedCompany}`, {
+  fetch(`${`https://placement-tracker-backend.azurewebsites.net`}/api/deleteCompany/${selectedCompany}`, {
     method: "DELETE",
   })
     .then(res => res.json())
     .then(data => {
       if (data.success) {
         // Refresh the company list from DB
-        fetch(`${process.env.REACT_APP_API_URL}/api/companies`)
+        fetch(`${`https://placement-tracker-backend.azurewebsites.net`}/api/companies`)
           .then(res => res.json())
           .then(data => setCompanies(data));
 
@@ -110,14 +110,14 @@ const handleAddSubmit = () => {
     return;
   }
   setAddSubmitting(true);
-  fetch(`${process.env.REACT_APP_API_URL}/api/addCompany`, {
+  fetch(`${`https://placement-tracker-backend.azurewebsites.net`}/api/addCompany`, {
     method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ cname: form.cname, trounds: Number(form.trounds) })
   })
   .then(res => res.json())
   .then(data => {
     if (data.success) {
       // refresh companies
-      fetch(`${process.env.REACT_APP_API_URL}/api/companies`).then(r=>r.json()).then(setCompanies);
+      fetch(`${`https://placement-tracker-backend.azurewebsites.net`}/api/companies`).then(r=>r.json()).then(setCompanies);
       setForm({ cname: '', trounds: '' });
       setAddOpen(false);
       toast.success('Company added');
@@ -135,7 +135,7 @@ const handleDelete = (cname) => {
 
 const confirmDelete = () => {
   const cname = deleteConfirm.company;
-  fetch(`${process.env.REACT_APP_API_URL}/api/deleteCompany/${cname}`, { method: 'DELETE' })
+  fetch(`${`https://placement-tracker-backend.azurewebsites.net`}/api/deleteCompany/${cname}`, { method: 'DELETE' })
     .then(r => r.json())
     .then(data => {
       if (data.success) {

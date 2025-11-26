@@ -4,7 +4,7 @@ import "./ofAdminDashboard.css"; // Assuming you have a CSS file for styling
 
 const OfAdminDashboard = () => {
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/api/ofcompanies`)
+        fetch(`${`https://placement-tracker-backend.azurewebsites.net`}/api/ofcompanies`)
             .then(res => res.json())
             .then(data => setCompanies(data))
             .catch(err => console.error("Error fetching companies", err));
@@ -28,7 +28,7 @@ const OfAdminDashboard = () => {
     const branch = e.target.value;
     console.log("Fetching count for:", companyName, "Branch:", branch);
 
-    fetch(`${process.env.REACT_APP_API_URL}/api/ofbranchPassedCount?branch=${branch}&company=${companyName}`)
+    fetch(`${`https://placement-tracker-backend.azurewebsites.net`}/api/ofbranchPassedCount?branch=${branch}&company=${companyName}`)
         .then(res => res.json())
         .then(data => {
             console.log(`Count for ${companyName} (${branch}):`, data.count); // ✅ Print here
@@ -48,7 +48,7 @@ const OfAdminDashboard = () => {
 
 
     const handleShowDetails = (company) => {
-        fetch(`${process.env.REACT_APP_API_URL}/api/ofpassedStudents/${company.ocname}`)
+        fetch(`${`https://placement-tracker-backend.azurewebsites.net`}/api/ofpassedStudents/${company.ocname}`)
             .then(res => res.json())
             .then(data => {
                 setShowDetailsPopup({ visible: true, company: company.ocname, students: data });
@@ -59,7 +59,7 @@ const OfAdminDashboard = () => {
     const handleAddCompany = () => {
         if (newCompany.name && newCompany.rounds) {
             // API call to backend
-            fetch(`${process.env.REACT_APP_API_URL}/api/ofaddCompany`, {
+            fetch(`${`https://placement-tracker-backend.azurewebsites.net`}/api/ofaddCompany`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -73,7 +73,7 @@ const OfAdminDashboard = () => {
                 .then(data => {
                     if (data.success) {
                         // Refresh company list from DB
-                        fetch(`${process.env.REACT_APP_API_URL}/api/ofcompanies`)
+                        fetch(`${`https://placement-tracker-backend.azurewebsites.net`}/api/ofcompanies`)
                             .then(res => res.json())
                             .then(data => setCompanies(data));
 
@@ -92,14 +92,14 @@ const OfAdminDashboard = () => {
     const handleRemoveCompany = () => {
         if (!selectedCompany || selectedCompany === "Select Company") return;
 
-        fetch(`${process.env.REACT_APP_API_URL}/ofdeleteCompany/${selectedCompany}`, {
+        fetch(`${`https://placement-tracker-backend.azurewebsites.net`}/ofdeleteCompany/${selectedCompany}`, {
             method: "DELETE",
         })
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
                     // Refresh the company list from DB
-                    fetch(`${process.env.REACT_APP_API_URL}/api/ofcompanies`)
+                    fetch(`${`https://placement-tracker-backend.azurewebsites.net`}/api/ofcompanies`)
                         .then(res => res.json())
                         .then(data => setCompanies(data));
 
